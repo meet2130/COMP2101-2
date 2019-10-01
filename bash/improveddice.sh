@@ -17,11 +17,11 @@ offset=1
 # Tell the user we have started processing
 echo "Rolling..."
 # roll the dice and save the results
-die1=$(( RANDOM % sides + offset))
-die2=$(( RANDOM % sides + offset ))
+die1=$(( $RANDOM % sides + offset))
+die2=$(( $RANDOM % sides + offset ))
 # sum up the rolls
 sum=$(( die1 + die2 ))
 # average
 avg=$(( sum / 2))
 # display the results
-echo "Rolled $die1, $die2 for a $sum, averaging $avg"
+echo "Rolled $die1, $die2 with a addition of $sum, averaging $avg"
