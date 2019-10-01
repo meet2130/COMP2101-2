@@ -9,4 +9,25 @@
 myString="TestString"
 referenceString="password"
 
-[ $myString = $referenceString ] && echo "You guessed the password!" || echo "The password eludes you..."
+#[ $myString = $referenceString ] && echo "You guessed the password!" || echo "The password eludes you..."
+for try in {1..3}
+
+do
+
+  read -p "Try ($try): Enter  the guessed password :" myString
+
+  if [ $myString = $referenceString ]
+
+  then
+
+    echo "Yeay You guessed it right. Goodjob!!"
+
+    break
+
+  else
+
+    echo "The password eludes you again, you fool..."
+
+  fi
+
+done
