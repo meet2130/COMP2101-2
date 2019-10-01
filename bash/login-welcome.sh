@@ -12,17 +12,23 @@
 ###############
 # Variables   #
 ###############
-title="Overlord"
+titles=("Overlord" "Almighty" "Smartguy" "Sneakyguy" "Starboy" "Thor" "Batman")
+My_index=$((RANDOM % ${#titles[@]}))
+title=${titles[$My_index]}
 myname="KRUPAL"
 hostname=$(hostname)
 time=$(date +'%H:%M %p on %A')
+Var=$(cat <<EOF
+Welcome to planet $hostname, "$title $myname!"
+
+It is $time
+EOF
+)
 
 ###############
 # Main        #
 ###############
+
 cat <<EOF
-
-Welcome to planet $hostname, "$title $myname!"
-It is $time
-
+$(cowsay "$Var")
 EOF
