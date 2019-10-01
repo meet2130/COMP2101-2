@@ -5,7 +5,9 @@
 
 # Improve this script by re-organizing it to:
 #  put the number of sides in a variable which is used as the range for the random number
+sides=6
 #  put the bias, or offset, for the RANDOM number in a variable (it is 1 for our purposes)
+offset=1
 #     - you can think of this as the minimum value for the generated number
 #  roll the dice using the variables for the range and bias i.e. RANDOM % range + bias
 #  generate the sum of the dice
@@ -15,9 +17,11 @@
 # Tell the user we have started processing
 echo "Rolling..."
 # roll the dice and save the results
-die1=$(( RANDOM % 6 + 1))
-die2=$(( RANDOM % 6 + 1 ))
+die1=$(( RANDOM % sides + offset))
+die2=$(( RANDOM % sides + offset ))
 # sum up the rolls
 sum=$(( die1 + die2 ))
+# average
+avg=$(( sum / 2))
 # display the results
-echo "Rolled $die1, $die2 for a $sum"
+echo "Rolled $die1, $die2 for a $sum, averaging $avg"
