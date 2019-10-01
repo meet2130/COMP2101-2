@@ -32,11 +32,30 @@
 # e.g. 
 #   interface_name=$(ip a |awk '/: e/{gsub(/:/,"");print $2}')
 
-cat <<EOF
+RouterAddress=$(grep '.13' /etc/hosts | awk '{print $1}')
+RouterHostname=$(getent hosts "$RouterAddress" | awk '{print $2}')
+NetworkAddress=$(grep '.3' /etc/networks | awk '{print $2}')
+NetworkHostname=$(getent networks "$NetworkAddress" | awk '{print $1}')
+
+Output=$(cat <<EOF
 Hostname        : $(hostname)
-LAN Address     : $(ip a s $(ip a |awk '/: e/{gsub(/:/,"");print $2}')|awk '/inet /{gsub(/\/.*/,"");print $2}')
-LAN Hostname    : $(getent hosts $(ip a s $(ip a |awk '/: e/{gsub(/:/,"");print $2}'))|awk '/inet /{gsub(/\/.*/,"");print $2}' | awk '{print $2}')
+LAN Address     : $(ip a s "$(ip a |awk '/: e/{gsub(/:/,"");print $2}')"|awk '/inet /{gsub(/\/.*/,"");print $2}')
+LAN Hostname    : $(getent hosts "$(ip a s "$(ip a |awk '/: e/{gsub(/:/,"");print $2}')")"|awk '/inet /{gsub(/\/.*/,"");print $2}' | awk '{print $3}')
 External IP     : $(curl -s icanhazip.com)
-External Name   : $(getent hosts $(curl -s icanhazip.com) | awk '{print $2}')
+External Name   : $(getent hosts "$(curl -s icanhazip.com)" | awk '{print $2}')
+Router Address  : $RouterAddress
+Router Hostname : $RouterHostname
+Network Address : $NetworkAddress
+Network Hostname: $NetworkHostname
 EOF
+)
+#======================================
+
+#Output
+#===================
+cat <<EOF
+$Output
+EOF
+#========================
+
 
