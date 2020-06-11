@@ -19,21 +19,32 @@
 # use the find command to generate the list of files with their sizes, with an error redirect to /dev/null
 # use cut or awk to display only the output desired
 
+
+
+
+
+# to set title for setuid files
 echo "Setuid files:"
-# to get some spaces
+# to get line under setuid files
 echo "============="
-# to give exact permission
+
+
+# to find list of files and redirct eoors in to null floder
 find / -type f -executable -perm -4000 -ls 2>/dev/null | sort -k 3
 echo ""
-# Setgid files has 2 octet values and setuid has 4
+
+# title for setuid files
 echo "Setgid files"
+# line under setuid files
 echo "============="
+
+# Setgid files that has two octet values and setuid has four tooo.
 find / -type f -executable -perm -2000 -ls 2>/dev/null | sort -k 3
 echo ""
-
+# 18 large files
 echo "The 10 largest file on the system"
 echo "============"
 
-# type -f will only find file, ls -l will give list of the file, block size is to get out put inmb
-# sort -rh to get reverse order list in human readble figures and awk to display 5 , 3 and last field of the output
+# type -f will only find file, ls -l for list of the file, block size is to get out put inmb
+# sort -rh for reverse order list in human readble figures and awk to display 3 , 5 and last field of the output
 find / 2>/dev/null -type f -exec ls -l --block-size=M {} + | sort -rh -k 5 | head -n 10 | awk '{print $5, $3, $9}'
